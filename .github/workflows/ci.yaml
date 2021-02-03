@@ -88,3 +88,23 @@ jobs:
   #       with:
   #         command: clippy
   #         args: --manifest-path impl/Cargo.toml -- -D warnings
+
+  # Based on README from https://github.com/marketplace/actions/bazel-action
+  build:
+    name: "Build with Bazel"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Mount bazel cache
+      uses: actions/cache@v1
+      with:
+        path: "/home/runner/.cache/bazel"
+        key: bazel
+    - name: Install bazelisk
+      run: |
+        curl -LO "https://github.com/bazelbuild/bazelisk/releases/download/v1.1.0/bazelisk-linux-amd64"
+        mkdir -p "${GITHUB_WORKSPACE}/bin/"
+        mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
+        chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
+    - name: Build
+      run: .github/scripts/bazel.sh

@@ -27,13 +27,13 @@ load("//third_party:third_party_transitive_deps.bzl", "third_party_transitive_de
 
 third_party_transitive_deps()
 
-load("//tools:examples_repository.bzl", "examples_repository")
-
-examples_repository()
-
-load("@cargo_raze_examples//:repositories.bzl", examples_repositories = "repositories")
-
-examples_repositories()
+# load("//tools:examples_repository.bzl", "examples_repository")
+#
+# examples_repository()
+#
+# load("@cargo_raze_examples//:repositories.bzl", examples_repositories = "repositories")
+#
+# examples_repositories()
 
 #############################################################################################
 # Buildifier

@@ -31,22 +31,22 @@ function vendor() {
     # Committed `Cargo.toml` files need to be preserved so a temp directory is
     # created where they will be copied into and restored after `cargo vendor`
     # is ran.
-    _TEMP_DIR=$(mktemp -d -t cargo_raze_examples_vendored-XXXXXXXXXX)
+    # _TEMP_DIR=$(mktemp -d -t cargo_raze_examples_vendored-XXXXXXXXXX)
 
     for ex in $(find $EXAMPLES_DIR/vendored -maxdepth 1 -type d | tail -n+2); do
         pushd "$ex"
         echo "Running Cargo Vendor for $(basename "$ex")"
 
         # First log all bazel files in the vendor path
-        _cache_bazel_files "$ex/cargo/vendor"
+        # _cache_bazel_files "$ex/cargo/vendor"
         
         # Vendor all crates
         ${CARGO} vendor -q --versioned-dirs "$ex/cargo/vendor"
 
         # Write the bazel files back in place
-        for filename in "${_RENDERED_FILES[@]}"; do
-            cat "${_TEMP_DIR}/${filename}" > "${filename}"
-        done
+        # for filename in "${_RENDERED_FILES[@]}"; do
+        #     cat "${_TEMP_DIR}/${filename}" > "${filename}"
+        # done
         popd
     done
 
